@@ -146,12 +146,19 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SocketClient.cpp" />
+    <ClCompile Include="SocketMessenger.cpp" />
     <ClCompile Include="SocketServer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyException.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="SocketException.h" />
     <ClInclude Include="SocketClient.h" />
+    <ClInclude Include="SocketMessenger.h" />
     <ClInclude Include="SocketServer.h" />
+    <ClInclude Include="StepInfoReply.h" />
+    <ClInclude Include="StepInfoRequest.h" />
+    <ClInclude Include="StepParameters.h" />
+    <ClInclude Include="Tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
