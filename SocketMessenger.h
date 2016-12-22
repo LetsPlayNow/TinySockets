@@ -26,4 +26,3 @@ protected:
     void closeSocket(int socket_desc);
     int other_desc;
 };
-

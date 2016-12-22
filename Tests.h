@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+// Module contains some simple tests and function of simple Server reciever, Client sender
 namespace Test {
     std::string localhost = "127.0.0.1";
     int default_port = 50000;
@@ -54,5 +55,42 @@ namespace Test {
     void RunAlltests() {
         std::cout << "Should send recv: " << boolToString(shouldSendReceive()) << std::endl;
         std::cout << "Should recieve first message: " << boolToString(shouldRecvFirst()) << std::endl;
+    }
+
+    void ServerTest() {
+        Test::MessageNum message;
+
+        while(true){
+            try{
+                SocketServer server(50000);
+                server.AcceptConnection();
+
+                server >> message;
+                std::cout << message.number << std::endl;
+            }
+            catch(SocketException exception){
+                std::cout << exception.what();
+                return;
+            }
+        }
+    }
+
+    void ClientTest() {
+        Test::MessageNum message;
+        std::string address;
+        //std::cin >> address;
+        while(true){
+            try {
+                SocketClient client;
+                client.Connect("172.16.7.44", 50000);
+
+                std::cin >> message.number;
+                client << message;
+            }
+            catch(SocketException exception){
+                std::cout << exception.what();
+                return;
+            }
+        }
     }
 }

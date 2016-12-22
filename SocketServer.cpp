@@ -24,8 +24,8 @@ SocketServer::SocketServer(int port) : SocketMessenger() {
 }
 
 void SocketServer::AcceptConnection() {
-    int c = sizeof(struct sockaddr_in);
-    other_desc = accept(server_desc, (struct sockaddr *)&client, &c); // (socklen_t*)
+    int c;
+    other_desc = accept(server_desc, (struct sockaddr *)&client, &c);
     if (other_desc < 0) throw SocketException("[Error] Accept connection");
 }
 
