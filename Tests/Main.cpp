@@ -1,12 +1,12 @@
 #include "Tests.h"
-#include "SocketServer.h"
+#include "../Messengers/SocketServer.h"
 #include <iostream>
 
 using std::cout;
 using std::cin;
 using std::endl;
 
-int main()
-{
-    Test::ClientTest();
+int main() {
+    Test::RunAlltests();
+    return 0;
 }

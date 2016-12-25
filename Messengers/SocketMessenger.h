@@ -9,9 +9,9 @@
     #include <ws2tcpip.h>
 #endif
 
-#include "Message.h"
-#include "SocketException.h"
-#include "MessageNum.h"
+#include "../Messages/Message.h"
+#include "../Other/SocketException.h"
+#include "../Messages/MessageNum.h"
 #include <string>
 
 class SocketMessenger

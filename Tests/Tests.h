@@ -1,9 +1,9 @@
 #pragma once
-#include "SocketClient.h"
-#include "SocketServer.h"
+#include "../Messengers/SocketClient.h"
+#include "../Messengers/SocketServer.h"
 #include <iostream>
 #include <string>
-#include "MessageNum.h"
+#include "../Messages/MessageNum.h"
 
 // Module contains some simple tests and function of simple Server reciever, Client sender
 namespace Test {
@@ -45,13 +45,39 @@ namespace Test {
         return recieved.number == 10;
     }
 
+
+    bool shouldNotRecvAfterClientTermination() {
+        SocketServer server(default_port);
+        SocketClient client;
+        client.Connect(localhost, default_port);
+        server.AcceptConnection();
+
+        client.Disconnect();
+
+        MessageNum recieved;
+        try{
+            server >> recieved;
+            cout << "Successfulyl recieved: " << recieved.number;
+        }
+        catch(SocketException e){
+            e.what();
+            return true;
+        }
+
+        return false;
+    }
+
     string boolToString(bool in) {
         return in ? "Success" : "Fail";
     }
 
     void RunAlltests() {
-        cout << "Should send recv: " << boolToString(shouldSendReceive()) << endl;
-        cout << "Should recieve first message: " << boolToString(shouldRecvFirst()) << endl;
+        cout << "Should send recv: " <<
+                boolToString(shouldSendReceive()) << endl;
+        cout << "Should recieve first message: " <<
+                boolToString(shouldRecvFirst()) << endl;
+        cout << "Should not recv after client termination " << endl <<
+                boolToString(shouldNotRecvAfterClientTermination()) << endl;
     }
 
 

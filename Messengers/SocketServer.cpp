@@ -17,7 +17,7 @@ SocketServer::SocketServer(int port) : SocketMessenger() {
     server.sin_port = htons( port );
 
     //Bind
-    bool fail = bind(server_desc, (struct sockaddr *)&server , sizeof(server)) < 0;
+    bool fail = bind(server_desc, (struct sockaddr *)&server , sizeof(server)) == -1;
     if (fail) throw SocketException("[Error] Bind socket");
 
     listen(server_desc, 3);
@@ -26,8 +26,7 @@ SocketServer::SocketServer(int port) : SocketMessenger() {
 bool SocketServer::AcceptConnection() {
     socklen_t c;
     other_desc = accept(server_desc, (struct sockaddr *)&client, &c);
-    return other_desc != 0;
-    //if (other_desc < 0) throw SocketException("[Error] Accept connection");
+    return other_desc != -1;
 }
 
 void SocketServer::CloseConnection()

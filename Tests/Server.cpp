@@ -1,5 +1,5 @@
 #include "Tests.h"
-#include "SocketServer.h"
+#include "../Messengers/SocketServer.h"
 #include <iostream>
 
 using std::cout;

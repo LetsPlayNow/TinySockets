@@ -19,7 +19,7 @@ bool SocketClient::Connect(std::string address, int port) {
     server.sin_port = htons(port);
 
     // http://man7.org/linux/man-pages/man2/connect.2.html
-    bool fail = connect(other_desc, (struct sockaddr *)&server, sizeof(server)) < 0;
+    bool fail = connect(other_desc, (struct sockaddr *)&server, sizeof(server)) == -1;
     return !fail;
 }
 
