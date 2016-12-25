@@ -3,16 +3,14 @@
 #include "SocketServer.h"
 #include <iostream>
 #include <string>
+#include "MessageNum.h"
 
 // Module contains some simple tests and function of simple Server reciever, Client sender
 namespace Test {
-    std::string localhost = "127.0.0.1";
-    int default_port = 50000;
+    using namespace std;
 
-    struct MessageNum : Message {
-        MessageNum(int num = 10) : number(num) {}
-        int number;
-    };
+    string localhost = "127.0.0.1";
+    int default_port = 45000;
 
     bool shouldSendReceive() {
         SocketServer server(default_port);
@@ -21,7 +19,7 @@ namespace Test {
         client.Connect(localhost, default_port);
         server.AcceptConnection();
 
-        MessageNum messageSent(15);
+        MessageNum messageSent(13);
         client << messageSent;
 
         MessageNum messageRecv;
@@ -32,7 +30,6 @@ namespace Test {
         return success;
     }
 
-    // TODO maybe we should do block stream or use datagram
     bool shouldRecvFirst() {
         SocketServer server(default_port);
         SocketClient client;
@@ -48,49 +45,58 @@ namespace Test {
         return recieved.number == 10;
     }
 
-    std::string boolToString(bool in) {
+    string boolToString(bool in) {
         return in ? "Success" : "Fail";
     }
 
     void RunAlltests() {
-        std::cout << "Should send recv: " << boolToString(shouldSendReceive()) << std::endl;
-        std::cout << "Should recieve first message: " << boolToString(shouldRecvFirst()) << std::endl;
+        cout << "Should send recv: " << boolToString(shouldSendReceive()) << endl;
+        cout << "Should recieve first message: " << boolToString(shouldRecvFirst()) << endl;
     }
 
-    void ServerTest() {
-        Test::MessageNum message;
 
-        while(true){
-            try{
-                SocketServer server(50000);
-                server.AcceptConnection();
+    void ServerTest()
+    {
+        SocketServer server(default_port);
 
-                server >> message;
-                std::cout << message.number << std::endl;
-            }
-            catch(SocketException exception){
-                std::cout << exception.what();
-                return;
-            }
+        // Connection
+        bool isConnected;
+        do
+        {
+            isConnected = server.AcceptConnection();
+            sleep(1);
+        }while(!isConnected);
+        cout << "Client connected" << endl;
+
+        // Data transfer
+        while(true)
+        {
+            MessageNum message;
+            server >> message;
+            cout << message.number << endl;
         }
     }
 
-    void ClientTest() {
-        Test::MessageNum message;
-        std::string address;
-        //std::cin >> address;
-        while(true){
-            try {
-                SocketClient client;
-                client.Connect("172.16.7.44", 50000);
+    void ClientTest()
+    {
+        SocketClient client;
 
-                std::cin >> message.number;
-                client << message;
-            }
-            catch(SocketException exception){
-                std::cout << exception.what();
-                return;
-            }
+        // Connection
+        bool isConnected;
+        do
+        {
+            isConnected = client.Connect(localhost, default_port);
+            sleep(1);
+        }while (!isConnected);
+
+        cout << "Connected to server" << endl;
+
+        // Data transfer
+        while (true)
+        {
+            MessageNum message;
+            cin >> message.number;
+            client << message;
         }
     }
 }

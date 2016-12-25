@@ -23,10 +23,11 @@ SocketServer::SocketServer(int port) : SocketMessenger() {
     listen(server_desc, 3);
 }
 
-void SocketServer::AcceptConnection() {
-    int c;
+bool SocketServer::AcceptConnection() {
+    socklen_t c;
     other_desc = accept(server_desc, (struct sockaddr *)&client, &c);
-    if (other_desc < 0) throw SocketException("[Error] Accept connection");
+    return other_desc != 0;
+    //if (other_desc < 0) throw SocketException("[Error] Accept connection");
 }
 
 void SocketServer::CloseConnection()

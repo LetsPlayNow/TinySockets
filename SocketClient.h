@@ -7,7 +7,7 @@ class SocketClient : public SocketMessenger {
 public:
     SocketClient();
     ~SocketClient();
-    void Connect(std::string address, int port);
+    bool Connect(std::string address, int port);
     void Disconnect();
 
 private:

@@ -4,7 +4,6 @@ project(SocketLib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    main.cpp
     Message.h
     SocketClient.cpp
     SocketClient.h
@@ -18,4 +17,8 @@ set(SOURCE_FILES
     StepParameters.h
     Tests.h)
 
-add_executable(SocketLib ${SOURCE_FILES})
+add_executable(SocketLib main.cpp ${SOURCE_FILES})
+
+add_executable(Client Client.cpp ${SOURCE_FILES})
+
+add_executable(Server Server.cpp ${SOURCE_FILES})

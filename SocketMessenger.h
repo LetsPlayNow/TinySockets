@@ -11,6 +11,7 @@
 
 #include "Message.h"
 #include "SocketException.h"
+#include "MessageNum.h"
 
 class SocketMessenger
 {
@@ -18,10 +19,12 @@ public:
     SocketMessenger();
 
     // Interface to send simple structs
-    friend SocketMessenger & operator <<(SocketMessenger & messenger, const Message & message);
-    friend SocketMessenger & operator >>(SocketMessenger & messenger, Message & message);
+//    friend SocketMessenger & operator <<(SocketMessenger & messenger, const Message & message);
+//    friend SocketMessenger & operator >>(SocketMessenger & messenger, Message & message);
 
-    
+    friend SocketMessenger & operator <<(SocketMessenger & messenger, const MessageNum & message);
+    friend SocketMessenger & operator >>(SocketMessenger & messenger, MessageNum & message);
+
 protected:
     void closeSocket(int socket_desc);
     int other_desc;

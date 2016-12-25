@@ -9,7 +9,7 @@ SocketClient::SocketClient() : SocketMessenger() {
 }
 
 
-void SocketClient::Connect(std::string address, int port) {
+bool SocketClient::Connect(std::string address, int port) {
     // http://man7.org/linux/man-pages/man2/socket.2.html
     other_desc = socket(AF_INET, SOCK_STREAM, 0);
     if (other_desc == -1) throw SocketException("[Error] Create socket");
@@ -20,7 +20,7 @@ void SocketClient::Connect(std::string address, int port) {
 
     // http://man7.org/linux/man-pages/man2/connect.2.html
     bool fail = connect(other_desc, (struct sockaddr *)&server, sizeof(server)) < 0;
-    if (fail) throw SocketException("[Error] Connect");
+    return !fail;
 }
 
 

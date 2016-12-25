@@ -11,7 +11,7 @@ class SocketServer : public SocketMessenger {
 public:
     SocketServer(int port);
     ~SocketServer();
-    void AcceptConnection();
+    bool AcceptConnection();
     void CloseConnection();
 
 private:
