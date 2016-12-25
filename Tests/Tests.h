@@ -52,15 +52,16 @@ namespace Test {
         client.Connect(localhost, default_port);
         server.AcceptConnection();
 
+        MessageNum message(110);
+        client << message;
         client.Disconnect();
 
         MessageNum recieved;
         try{
             server >> recieved;
-            cout << "Successfulyl recieved: " << recieved.number;
+            server >> recieved;
         }
         catch(SocketException e){
-            e.what();
             return true;
         }
 
@@ -76,7 +77,7 @@ namespace Test {
                 boolToString(shouldSendReceive()) << endl;
         cout << "Should recieve first message: " <<
                 boolToString(shouldRecvFirst()) << endl;
-        cout << "Should not recv after client termination " << endl <<
+        cout << "Should not recv after client termination: " <<
                 boolToString(shouldNotRecvAfterClientTermination()) << endl;
     }
 

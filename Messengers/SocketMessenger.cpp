@@ -37,7 +37,7 @@ void SocketMessenger::_send(const void *buffer, size_t size) {
 
 void SocketMessenger::_recv(void *buffer, size_t size) {
     bool fail = recv(other_desc, buffer, size, 0) <= 0;
-    if (fail) throw SocketException("[Error] Can't send message");
+    if (fail) throw SocketException("[Error] Can't recv message");
 }
 
 
