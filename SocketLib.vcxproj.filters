@@ -22,7 +22,6 @@
     <ClInclude Include="Messengers\SocketServer.h" />
     <ClInclude Include="Other\SocketException.h" />
     <ClInclude Include="Tests\Tests.h" />
-    <ClInclude Include="Other\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Messengers\SocketClient.cpp" />

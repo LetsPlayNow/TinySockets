@@ -28,7 +28,6 @@
     <ClInclude Include="Messengers\SocketMessenger.h" />
     <ClInclude Include="Messengers\SocketServer.h" />
     <ClInclude Include="Other\SocketException.h" />
-    <ClInclude Include="Other\Utils.h" />
     <ClInclude Include="Tests\Tests.h" />
   </ItemGroup>
   <ItemGroup>
