@@ -12,6 +12,7 @@
 #include "../Messages/Message.h"
 #include "../Other/SocketException.h"
 #include "../Messages/MessageNum.h"
+#include "../Other/Utils.h"
 #include <string>
 
 class SocketMessenger

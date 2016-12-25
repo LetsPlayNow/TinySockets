@@ -8,6 +8,8 @@ set(SOURCE_FILES
         Messengers/SocketClient.cpp
         Messengers/SocketClient.h
         Other/SocketException.h
+        Other/Utils.h
+        Other/Utils.cpp
         Messengers/SocketMessenger.cpp
         Messengers/SocketMessenger.h
         Messengers/SocketServer.cpp
@@ -15,7 +17,8 @@ set(SOURCE_FILES
         Messages/StepInfoReply.h
         Messages/StepInfoRequest.h
         Messages/StepParameters.h
-        Tests/Tests.h)
+        Tests/Tests.h
+        Tests/Tests.cpp)
 
 add_executable(MainTests Tests/Main.cpp ${SOURCE_FILES})
 

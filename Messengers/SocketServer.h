@@ -6,12 +6,14 @@
 #define SOCKETSERVER_H
 #include "SocketMessenger.h"
 #include <string>
+#include "../Other/Utils.h"
 
 class SocketServer : public SocketMessenger {
 public:
     SocketServer(int port);
     ~SocketServer();
-    bool AcceptConnection();
+    bool TryAcceptConnection();
+    void AcceptConnection(int retries_limit = 10, int delayms=1000);
     void CloseConnection();
 
 private:

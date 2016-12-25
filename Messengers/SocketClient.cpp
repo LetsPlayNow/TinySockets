@@ -1,6 +1,7 @@
 #include "SocketClient.h"
 
-SocketClient::SocketClient() : SocketMessenger() {
+SocketClient::SocketClient() : SocketMessenger() 
+{
 #ifdef _WIN32
     WSADATA wsaData;
     int initResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -9,7 +10,8 @@ SocketClient::SocketClient() : SocketMessenger() {
 }
 
 
-bool SocketClient::Connect(std::string address, int port) {
+bool SocketClient::TryConnect(std::string address, int port) 
+{
     // http://man7.org/linux/man-pages/man2/socket.2.html
     other_desc = socket(AF_INET, SOCK_STREAM, 0);
     if (other_desc == -1) throw SocketException("[Error] Create socket");
@@ -23,14 +25,26 @@ bool SocketClient::Connect(std::string address, int port) {
     return !fail;
 }
 
+void SocketClient::Connect(std::string address, int port, int retries_limit, int delayms)
+{
+    int retries_count = 0;
+    while (!TryConnect(address, port) && retries_count < retries_limit)
+    {
+        Sleep(delayms);
+        retries_count++;
+    }
+}
 
-void SocketClient::Disconnect() {
+
+void SocketClient::Disconnect() 
+{
     closeSocket(other_desc); 
     other_desc = -1;
 }
 
 
-SocketClient::~SocketClient() {
+SocketClient::~SocketClient()
+{
     Disconnect();
 #ifdef _WIN32
     WSACleanup();

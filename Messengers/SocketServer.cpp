@@ -1,6 +1,7 @@
 #include "SocketServer.h"
 
-SocketServer::SocketServer(int port) : SocketMessenger() {
+SocketServer::SocketServer(int port) : SocketMessenger() 
+{
 #ifdef _WIN32
     WSADATA wsaData;
     int initResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -23,10 +24,21 @@ SocketServer::SocketServer(int port) : SocketMessenger() {
     listen(server_desc, 3);
 }
 
-bool SocketServer::AcceptConnection() {
+bool SocketServer::TryAcceptConnection() 
+{
     socklen_t c;
     other_desc = accept(server_desc, (struct sockaddr *)&client, &c);
     return other_desc != -1;
+}
+
+void SocketServer::AcceptConnection(int retries_limit, int delayms) 
+{
+    int retries_count = 0;
+    while (!TryAcceptConnection() && retries_count < retries_limit)
+    {
+        Sleep(delayms);
+        retries_count++;
+    }
 }
 
 void SocketServer::CloseConnection()
@@ -35,7 +47,8 @@ void SocketServer::CloseConnection()
     other_desc = -1;
 }
 
-SocketServer::~SocketServer() {
+SocketServer::~SocketServer()
+{
     closeSocket(server_desc);
     closeSocket(other_desc);
 
