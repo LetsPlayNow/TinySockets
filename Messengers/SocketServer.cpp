@@ -26,7 +26,7 @@ SocketServer::SocketServer(int port) : SocketMessenger()
 
 bool SocketServer::TryAcceptConnection() 
 {
-    socklen_t c;
+    socklen_t c = sizeof(client);
     other_desc = accept(server_desc, (struct sockaddr *)&client, &c);
     return other_desc != -1;
 }
