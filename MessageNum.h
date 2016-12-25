@@ -9,14 +9,6 @@
 struct MessageNum : Message {
     MessageNum(int num = 15) : number(num) {}
     int number;
-
-    size_t size() const{
-        return sizeof(number);
-    }
-
-    virtual std::string to_str(){
-        return std::to_string(number);
-    }
 };
 
 
