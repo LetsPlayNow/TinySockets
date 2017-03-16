@@ -6,12 +6,14 @@
 #define SOCKETLIB_UDPCLIENT_H
 
 #include "Client.h"
+
 template <class TemplateConnection>
 class UDPClient : public Client<TemplateConnection>{
-    UDPClient();
-    ~UDPClient();
-
-    TemplateConnection Connect(const std::string ip, const int port);
+    TemplateConnection Connect(const std::string ip, const int port)
+    {
+        UDPSocket sock(port, ip);
+        return TemplateConnection(&sock);
+    }
 };
 
 

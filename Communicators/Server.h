@@ -7,7 +7,6 @@
 
 #include "../Connections/Connection.h"
 
-
 template <class TemplateConnection>
 class Server {
 public:

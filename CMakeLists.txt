@@ -4,22 +4,11 @@ project(SocketLib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-        Messages/Message.h
-        Messengers/SocketClient.cpp
-        Messengers/SocketClient.h
         Other/SocketException.h
         Other/Utils.h
         Other/Utils.cpp
-        Messengers/SocketMessenger.cpp
-        Messengers/SocketMessenger.h
-        Messengers/SocketServer.cpp
-        Messengers/SocketServer.h
-        Messages/StepInfoReply.h
-        Messages/StepInfoRequest.h
-        Messages/StepParameters.h
         Tests/Tests.h
         Tests/Tests.cpp
-        Connections/Connection.cpp
         Connections/Connection.h
         Communicators/Client.h
         Communicators/Server.h
@@ -27,6 +16,7 @@ set(SOURCE_FILES
         Communicators/UDPClient.h
         Communicators/UDPServer.h
         Communicators/TCPServer.h
+        Connections/Socket.h
         )
 
 add_executable(MainTests Tests/Main.cpp ${SOURCE_FILES})
