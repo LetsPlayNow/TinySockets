@@ -4,7 +4,9 @@
 #include "Server.h"
 
 template <class TemplateConnection>
-class TCPServer : Server<TemplateConnection>{
+class TCPServer : Server<TemplateConnection>
+{
+public:
     TCPServer(int port, int queue_length = 3) : listener(port)
     {
         sockaddr_in my_addr = listener.GetMyAddress();
@@ -14,7 +16,6 @@ class TCPServer : Server<TemplateConnection>{
 
         listen(sock_desc, queue_length);
     }
-
 
     TemplateConnection AcceptConnection()
     {

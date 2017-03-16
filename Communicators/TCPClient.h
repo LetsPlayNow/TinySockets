@@ -9,6 +9,7 @@
 
 template <class TemplateConnection>
 class TCPClient : public Client<TemplateConnection> {
+public:
     TemplateConnection Connect(const std::string ip, const int port)
     {
         TCPSocket socket(ip, port);

@@ -10,6 +10,7 @@
 
 template <class TemplateConnection>
 class UDPServer : Server<TemplateConnection>{
+public:
     UDPServer(int port)
     {
         _server_port = port;
