@@ -18,7 +18,16 @@ set(SOURCE_FILES
         Messages/StepInfoRequest.h
         Messages/StepParameters.h
         Tests/Tests.h
-        Tests/Tests.cpp)
+        Tests/Tests.cpp
+        Connections/Connection.cpp
+        Connections/Connection.h
+        Communicators/Client.h
+        Communicators/Server.h
+        Communicators/TCPClient.h
+        Communicators/UDPClient.h
+        Communicators/UDPServer.h
+        Communicators/TCPServer.h
+        )
 
 add_executable(MainTests Tests/Main.cpp ${SOURCE_FILES})
 

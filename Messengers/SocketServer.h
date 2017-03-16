@@ -1,7 +1,3 @@
-//
-// Created by aleksey on 09.10.16.
-//
-
 #ifndef SOCKETSERVER_H
 #define SOCKETSERVER_H
 #include "SocketMessenger.h"
