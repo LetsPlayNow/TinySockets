@@ -31,7 +31,7 @@ public:
     }
 
 private:
-    TCPSocket listener;
+    TCPSocket listener; // todo maybe make it a connection
 };
 
 

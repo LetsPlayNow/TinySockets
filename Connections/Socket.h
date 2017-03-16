@@ -1,7 +1,3 @@
-//
-// Created by aleksey on 16.03.17.
-//
-
 #ifndef SOCKETLIB_SOCKET_H
 #define SOCKETLIB_SOCKET_H
 
@@ -20,7 +16,9 @@ public:
     }
     ~Socket()
     {
-        // close(_sock_desc); fixme plz
+        // fixme if socket goes out of vision area, it automatically closes. but I have many socket copy - paste
+        // fixme maybe server should have list of connections and close them itself
+        // close(_sock_desc);
     }
 
     // Note sedndto and recvfrom works for both types of connections

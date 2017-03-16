@@ -1,7 +1,3 @@
-//
-// Created by aleksey on 09.10.16.
-//
-
 #ifndef SOCKETCLIENT_MYEXCEPTION_H
 #define SOCKETCLIENT_MYEXCEPTION_H
 #include <exception>

@@ -37,11 +37,4 @@ protected:
     Socket * _socket;
 };
 
-
-
-
-
-
-
-
 #endif //SOCKETLIB_CONNECTION_H

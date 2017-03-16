@@ -26,7 +26,8 @@ namespace Test
 
         buffer_out;
         client_connection >> buffer_out;
-
+        assert(buffer_in == buffer_out);
+        client_connection >> buffer_out;
         assert(buffer_in == buffer_out);
     }
 

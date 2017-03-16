@@ -1,7 +1,3 @@
-//
-// Created by aleksey on 15.03.17.
-//
-
 #ifndef SOCKETLIB_SERVER_H
 #define SOCKETLIB_SERVER_H
 
