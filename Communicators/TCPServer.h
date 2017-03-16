@@ -27,7 +27,7 @@ public:
         if (fail) throw SocketException("[TCP::Server::AcceptConnection] Can't accept connection");
 
         TCPSocket client_socket(client_desc, client);
-        return TemplateConnection(client_socket);
+        return TemplateConnection(&client_socket);
     }
 
 private:

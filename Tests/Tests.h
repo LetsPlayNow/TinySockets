@@ -6,13 +6,13 @@
 #include "../Connections/Connection.h"
 #include <iostream>
 #include <string>
+#include <assert.h>
 
 namespace Test
 {
-    using namespace std;
-    string localhost = "127.0.0.1";
-    int default_port = 50000;
+    extern std::string default_ip;
+    extern int default_port;
 
-    bool TcpSendRecvTest();
-    bool UdpSendRecvTest();
+    void TcpSendRecvTest();
+    void UdpSendRecvTest();
 }

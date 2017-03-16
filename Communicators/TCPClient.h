@@ -13,7 +13,7 @@ public:
     TemplateConnection Connect(const std::string ip, const int port)
     {
         TCPSocket socket(ip, port);
-        return TemplateConnection(socket);
+        return TemplateConnection(&socket);
     }
 };
 

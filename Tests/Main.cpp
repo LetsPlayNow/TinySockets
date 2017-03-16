@@ -1,8 +1,7 @@
 #include "Tests.h"
-#include "../Messengers/SocketServer.h"
-#include <iostream>
 
 int main() {
-    Test::RunAlltests();
+    //Test::UdpSendRecvTest();
+    Test::TcpSendRecvTest();
     return 0;
 }
