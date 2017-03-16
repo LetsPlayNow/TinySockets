@@ -18,9 +18,9 @@ public:
     {
         _sock_desc = -1;
     }
-    virtual ~Socket()
+    ~Socket()
     {
-        close(_sock_desc);
+        // close(_sock_desc); fixme plz
     }
 
     // Note sedndto and recvfrom works for both types of connections
@@ -59,20 +59,25 @@ public:
         _other = other;
     }
 
+    // For client
     TCPSocket(std::string ip, int port)
     {
         // http://man7.org/linux/man-pages/man2/socket.2.html
         _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
         if (_sock_desc == -1) throw SocketException("[Error] Create socket");
 
-        _other.sin_addr.s_addr = inet_addr(ip.c_str());
         _other.sin_family = AF_INET;
-        _other.sin_port = htons(port);
+        _other.sin_port = htons( port );
+        _other.sin_addr.s_addr = inet_addr(ip.c_str());
     }
 
     // For TCP server bind socket
-    TCPSocket(int port) : TCPSocket("", port)
+    TCPSocket(int port)
     {
+        // http://man7.org/linux/man-pages/man2/socket.2.html
+        _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
+        if (_sock_desc == -1) throw SocketException("[Error] Create socket");
+
         _my_addr.sin_family = AF_INET;
         _my_addr.sin_addr.s_addr = INADDR_ANY;
         _my_addr.sin_port = htons( port );
@@ -82,7 +87,20 @@ public:
 class UDPSocket : public Socket
 {
 public:
+    // Client don't need to preset it's own address
     UDPSocket(std::string ip, int port)
+    {
+        _sock_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        bool socket_fail = _sock_desc == -1;
+        if (socket_fail) throw SocketException("[UDPServer::UDPServer()] Can't create socket");
+
+        _other.sin_family = AF_INET;
+        _other.sin_port = htons(port);
+        _other.sin_addr.s_addr = inet_addr(ip.c_str());
+    }
+
+    // Server don't need to know ip address of client
+    UDPSocket(int port)
     {
         _sock_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         bool socket_fail = _sock_desc == -1;
@@ -95,16 +113,7 @@ public:
 
         bool bind_fail = bind(_sock_desc, (sockaddr*)&_my_addr, sizeof(_my_addr)) == -1;
         if (bind_fail) throw SocketException("[UDPServer::UDPServer()] Can't bind socket");
-
-        // Preset destination address (it will be rewrited with nearest recvfrom)
-        _other.sin_family = AF_INET;
-        _other.sin_port = htons(port);
-        _other.sin_addr.s_addr = inet_addr(ip.c_str());
     }
-
-    // Server don't need to know ip address of client
-    UDPSocket(int port) : UDPSocket("", port)
-    { }
 };
 
 
