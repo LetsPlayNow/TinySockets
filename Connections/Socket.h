@@ -84,6 +84,7 @@ public:
     }
 };
 
+// todo maybe separate constructors into UDPSocketServer, UDPSocketClient
 class UDPSocket : public Socket
 {
 public:

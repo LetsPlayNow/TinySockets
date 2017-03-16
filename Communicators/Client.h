@@ -6,7 +6,6 @@
 #define SOCKETLIB_CLIENT_H
 
 #include "../Connections/Connection.h"
-#include <string.h>
 
 template <class TemplateConnection>
 class Client {

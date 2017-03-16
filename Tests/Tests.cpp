@@ -13,7 +13,6 @@ namespace Test
         Connection client_connection = client.Connect(default_ip, default_port);
         Connection server_connection = server.AcceptConnection();
 
-
         int buffer_in = 12345;
         client_connection << buffer_in;
 
