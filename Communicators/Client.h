@@ -4,7 +4,8 @@
 #include "../Connections/Connection.h"
 
 template <class TemplateConnection>
-class Client {
+class Client
+{
 public:
     virtual TemplateConnection Connect(const std::string ip, const int port) = 0;
 };

@@ -4,7 +4,8 @@
 #include "Socket.h"
 // If you want to add your message support, just inherit from this class and add your own >> << methods
 
-class Connection {
+class Connection
+{
 public:
     Connection()
     { _socket = new Socket(); }

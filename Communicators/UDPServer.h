@@ -4,7 +4,8 @@
 #include "Server.h"
 
 template <class TemplateConnection>
-class UDPServer : Server<TemplateConnection>{
+class UDPServer : Server<TemplateConnection>
+{
 public:
     UDPServer(int port)
     {

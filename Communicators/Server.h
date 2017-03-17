@@ -4,7 +4,8 @@
 #include "../Connections/Connection.h"
 
 template <class TemplateConnection>
-class Server {
+class Server
+{
 public:
     virtual TemplateConnection AcceptConnection() = 0;
 };

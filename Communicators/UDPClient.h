@@ -4,7 +4,8 @@
 #include "Client.h"
 
 template <class TemplateConnection>
-class UDPClient : public Client<TemplateConnection>{
+class UDPClient : public Client<TemplateConnection>
+{
 public:
     TemplateConnection Connect(const std::string ip, const int port)
     {

@@ -59,7 +59,8 @@ public:
     {
         // http://man7.org/linux/man-pages/man2/socket.2.html
         _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
-        if (_sock_desc == -1) throw SocketException("[Error] Create socket");
+        bool socket_fail = _sock_desc == -1;
+        if (socket_fail) throw SocketException("[TCPServerListenSocket::TCPServerListenSocket()] socket() failed");
 
         _my_addr.sin_family = AF_INET;
         _my_addr.sin_addr.s_addr = INADDR_ANY;
@@ -74,7 +75,8 @@ public:
     {
         // http://man7.org/linux/man-pages/man2/socket.2.html
         _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
-        if (_sock_desc == -1) throw SocketException("[Error] Create socket");
+        bool socket_fail = _sock_desc == -1;
+        if (socket_fail) throw SocketException("[TCPClientSocket::TCPClientSocket()] socket() failed");
 
         _other.sin_family = AF_INET;
         _other.sin_port = htons( port );

@@ -3,8 +3,12 @@
 
 int main()
 {
+    std::cout << "UDP test: ";
     Test::UdpSendRecvTest();
+    std::cout << "Success" << std::endl;
+    std::cout << "TCP test: ";
     Test::TcpSendRecvTest();
-    std::cout << "Tests successfully completed";
+    std::cout << "Success" << std::endl;
+    std::cout << "All tests successfully completed";
     return 0;
 }
