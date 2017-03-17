@@ -9,11 +9,14 @@ It supports UDP and TCP**
 There are Socket and Connection classes.
 You can inherit from Connection class and override << and >> operators for every thing you want.
 Socket classes are not for direct use.
+
 ###Communicators
 There are TCP and UDP client and server template classes.
 You can use them with tour own Connection class.
+
 ### Utils
 There are SocketException class
+
 ### Tests
 Tests for Communicators
 Now there are only Send/Recv tests
@@ -49,7 +52,6 @@ It's just calls `connect()` method with server address.
 ### UDPServer
 It binds it's own port and awaits for request via `recvfrom()`.
 In `recvfrom()` it make explictly bind to incoming connection.
-
 
 ### UDPClient
 It just calling `sendto()` with address of server.
