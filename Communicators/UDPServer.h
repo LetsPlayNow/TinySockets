@@ -13,7 +13,7 @@ public:
 
     TemplateConnection AcceptConnection()
     {
-        UDPSocket socket(_server_port); // we will figure out user address after recvfrom
+        UDPServerSocket socket(_server_port); // we will figure out user address after recvfrom
         return TemplateConnection(&socket);
     }
 

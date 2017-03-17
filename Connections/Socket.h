@@ -48,29 +48,14 @@ protected:
     sockaddr_in _my_addr;
 };
 
+// TCP sockets
 class TCPSocket : public Socket
+{ };
+
+class TCPServerListenSocket : public TCPSocket
 {
 public:
-    TCPSocket(int sock_desc, sockaddr_in other)
-    {
-        _sock_desc = sock_desc;
-        _other = other;
-    }
-
-    // For client
-    TCPSocket(std::string ip, int port)
-    {
-        // http://man7.org/linux/man-pages/man2/socket.2.html
-        _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
-        if (_sock_desc == -1) throw SocketException("[Error] Create socket");
-
-        _other.sin_family = AF_INET;
-        _other.sin_port = htons( port );
-        _other.sin_addr.s_addr = inet_addr(ip.c_str());
-    }
-
-    // For TCP server bind socket
-    TCPSocket(int port)
+    TCPServerListenSocket(int port)
     {
         // http://man7.org/linux/man-pages/man2/socket.2.html
         _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -82,24 +67,36 @@ public:
     }
 };
 
-// todo maybe separate constructors into UDPSocketServer, UDPSocketClient
-class UDPSocket : public Socket
+class TCPClientSocket : public TCPSocket
 {
 public:
-    // Client don't need to preset it's own address
-    UDPSocket(std::string ip, int port)
+    TCPClientSocket(std::string ip, int port)
     {
-        _sock_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-        bool socket_fail = _sock_desc == -1;
-        if (socket_fail) throw SocketException("[UDPServer::UDPServer()] Can't create socket");
+        // http://man7.org/linux/man-pages/man2/socket.2.html
+        _sock_desc = socket(AF_INET, SOCK_STREAM, 0);
+        if (_sock_desc == -1) throw SocketException("[Error] Create socket");
 
         _other.sin_family = AF_INET;
-        _other.sin_port = htons(port);
+        _other.sin_port = htons( port );
         _other.sin_addr.s_addr = inet_addr(ip.c_str());
     }
 
+    TCPClientSocket(int sock_desc, sockaddr_in other)
+    {
+        _sock_desc = sock_desc;
+        _other = other;
+    }
+};
+
+// UDP sockets
+class UDPSocket : public Socket
+{};
+
+class UDPServerSocket : public UDPSocket
+{
+public:
     // Server don't need to know ip address of client
-    UDPSocket(int port)
+    UDPServerSocket(int port)
     {
         _sock_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         bool socket_fail = _sock_desc == -1;
@@ -112,6 +109,22 @@ public:
 
         bool bind_fail = bind(_sock_desc, (sockaddr*)&_my_addr, sizeof(_my_addr)) == -1;
         if (bind_fail) throw SocketException("[UDPServer::UDPServer()] Can't bind socket");
+    }
+};
+
+class UDPClientSocket : public Socket
+{
+public:
+    // Client don't need to preset it's own address
+    UDPClientSocket(std::string ip, int port)
+    {
+        _sock_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        bool socket_fail = _sock_desc == -1;
+        if (socket_fail) throw SocketException("[UDPServer::UDPServer()] Can't create socket");
+
+        _other.sin_family = AF_INET;
+        _other.sin_port = htons(port);
+        _other.sin_addr.s_addr = inet_addr(ip.c_str());
     }
 };
 

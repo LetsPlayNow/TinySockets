@@ -26,12 +26,12 @@ public:
         // todo good naming idea (namespaces)
         if (fail) throw SocketException("[TCP::Server::AcceptConnection] Can't accept connection");
 
-        TCPSocket client_socket(client_desc, client);
+        TCPClientSocket client_socket(client_desc, client);
         return TemplateConnection(&client_socket);
     }
 
 private:
-    TCPSocket listener; // todo maybe make it a connection
+    TCPServerListenSocket listener; // todo maybe make it a connection
 };
 
 

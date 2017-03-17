@@ -8,7 +8,7 @@ class UDPClient : public Client<TemplateConnection>{
 public:
     TemplateConnection Connect(const std::string ip, const int port)
     {
-        UDPSocket socket(ip, port);
+        UDPClientSocket socket(ip, port);
         return TemplateConnection(&socket);
     }
 };
