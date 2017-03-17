@@ -23,6 +23,7 @@ Now there are only Send/Recv tests
 ### Connection
 Just inherit from Connection class and implement methods '>>' '<<' for your struct or class
 ![](https://habrastorage.org/files/619/2dc/2b4/6192dc2b4731432daf15a04ed318997d.png)
+
 Then just use this class as type in TCP/UDP/Client/Server templates.
 
 Server and client returns Connection object, when connection established
