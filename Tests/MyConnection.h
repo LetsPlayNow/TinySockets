@@ -7,8 +7,8 @@
 
 #include "../Connections/Connection.h"
 
-// TODO Add string and array to this example
-class MyConnection : public Connection{
+class MyConnection : public Connection
+{
     friend Connection & operator <<(Connection & connection, const char symbol)
     {
         connection._socket->Send(&number, sizeof(int));

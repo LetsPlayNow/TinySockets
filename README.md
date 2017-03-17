@@ -1,37 +1,56 @@
 # TinySockets
-Tiny cross-platform sockets peer to peer library.  
-This project was tested on Ubuntu with Clion and on Windows 10 with Visual Studio.
+**Tiny object oriented header only sockets library
+It supports UDP and TCP**
+
+![](https://habrastorage.org/files/858/6a0/e83/8586a0e83c0c49d6936f2c0b2785c2ac.png)
 
 ## Project Structure
-### Debug
-It's debug folder for Visual Studio
-### Messages
-Folder for Messages classes
-### Messengers
-Folder for Messengers classes (Client, Server)
-### Other
-Some help staff, like library's own exception class and define header for ubuntu
+### Connections
+There are Socket and Connection classes.
+You can inherit from Connection class and override << and >> operators for every thing you want.
+Socket classes are not for direct use.
+###Communicators
+There are TCP and UDP client and server template classes.
+You can use them with tour own Connection class.
+### Utils
+There are SocketException class
 ### Tests
-* Tests class with small simple tests for sockets
-* Client - Server tests (Client.cpp, Server.cpp)  
-In this tests client sends to Server simple message with number inside
+Tests for Communicators
+Now there are only Send/Recv tests
+
 
 ## Main Classes description
-### Socket Messenger
-It's an abstract class with send/recv methods  
-If you want to add send/recv for your class, override << and >> ooperators for them  
-Also contains descriptor of socket to write/read from it.
+### Connection
+Just inherit from Connection class and implement methods '>>' '<<' for your struct or class
+![](https://habrastorage.org/files/619/2dc/2b4/6192dc2b4731432daf15a04ed318997d.png)
+Then just use this class as type in TCP/UDP/Client/Server templates.
 
-### SocketClient
-Child of Socket Messenger  
-Has some specific methods:
-* TryConnect (try connect 1 time)
-* Connect (try connect many times with delay)
-* Disconnect
+Server and client returns Connection object, when connection established
+(methods `AcceptConnection()` for Server classes and `Connect()` for Client classes)
 
-### SocketServer
-Child of Socket Messenger  
-Has some specific methods:
-* TryAcceptConnection (try connect 1 time)
-* AcceptConnection (try connect many times with delay)
-* CloseConnection
+
+### Clients and servers
+Every Client has
+`TemplateConnection Connect(const std::string ip, const int port)`
+
+Every Server class has
+` TemplateConnection AcceptConnection()`
+
+### TCPServer
+It binds one socket and listens connections via it.
+When new connections comes, it opens new socket via `accept()`
+and creates new connection with client.
+
+### TCPClient
+It does not need to bind it's own address to socket.
+It's just calls `connect()` method with server address.
+
+### UDPServer
+It binds it's own port and awaits for request via `recvfrom()`.
+In `recvfrom()` it make explictly bind to incoming connection.
+
+
+### UDPClient
+It just calling `sendto()` with address of server.
+
+
